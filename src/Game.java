@@ -13,6 +13,7 @@ public class Game extends Canvas implements Runnable {
     //Instances
     private Handler handler;
     private KeyInput input;
+    private MouseInput mouseInput;
 
     public Game(){
         //constructor
@@ -25,9 +26,12 @@ public class Game extends Canvas implements Runnable {
     private void init(){
         handler = new Handler();
         input = new KeyInput();
+        mouseInput = new MouseInput(handler);
         this.addKeyListener(input);
+        this.addMouseListener(mouseInput);
 
         handler.add(new Player(100, 100, ID.Player, input));
+        mouseInput.findPlayer();
 
     }
 
