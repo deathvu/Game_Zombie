@@ -9,10 +9,17 @@ public class Game extends Canvas implements Runnable {
     private boolean isRunning = false;
     private Thread thread;
 
+    //Instances
+    private Handler handler;
+
     public Game(){
         //constructor
         new Window(WIDTH, HEIGHT, title, this);
         start();
+
+        handler = new Handler();
+
+        handler.add(new Player(100, 200, ID.Player));
     }
 
     private synchronized void start(){
@@ -64,6 +71,7 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         // updating the game
+        handler.tick();
     }
 
     private void render() {
@@ -80,7 +88,7 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.red);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
-
+        handler.render(g);
 
         bs.show();
         g.dispose();
