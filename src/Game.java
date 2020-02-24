@@ -1,9 +1,10 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.security.Key;
 
 public class Game extends Canvas implements Runnable {
 
-    public static int WIDTH = 1200, HEIGHT = 600;
+    public static int WIDTH = 800, HEIGHT = 600;
     public static String title = "Zombie Game";
 
     private boolean isRunning = false;
@@ -11,15 +12,23 @@ public class Game extends Canvas implements Runnable {
 
     //Instances
     private Handler handler;
+    private KeyInput input;
 
     public Game(){
         //constructor
         new Window(WIDTH, HEIGHT, title, this);
         start();
 
-        handler = new Handler();
+        init();
+    }
 
-        handler.add(new Player(100, 200, ID.Player));
+    private void init(){
+        handler = new Handler();
+        input = new KeyInput();
+        this.addKeyListener(input);
+
+        handler.add(new Player(100, 100, ID.Player, input));
+
     }
 
     private synchronized void start(){
@@ -85,8 +94,10 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
 
         // Meat and bones of rendering
-        g.setColor(Color.red);
+        g.setColor(Color.gray);
         g.fillRect(0, 0, WIDTH, HEIGHT);
+        Toolkit.getDefaultToolkit().sync();
+
 
         handler.render(g);
 
