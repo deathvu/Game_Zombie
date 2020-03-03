@@ -14,6 +14,7 @@ public class Game extends Canvas implements Runnable {
     private Handler handler;
     private KeyInput input;
     private MouseInput mouseInput;
+    private Camera camera;
 
     public Game(){
         //constructor
@@ -26,10 +27,15 @@ public class Game extends Canvas implements Runnable {
     private void init(){
         handler = new Handler();
         input = new KeyInput();
-        mouseInput = new MouseInput(handler);
+        camera = new Camera(0,0, handler);
+        mouseInput = new MouseInput(handler, camera);
         this.addKeyListener(input);
         this.addMouseListener(mouseInput);
 
+        handler.add(new Obstacle(100, 500, ID.Block));
+        handler.add(new Obstacle(200, 400, ID.Block));
+        handler.add(new Obstacle(300, 300, ID.Block));
+        handler.add(new Obstacle(400, 200, ID.Block));
         handler.add(new Player(100, 100, ID.Player, input));
         mouseInput.findPlayer();
 
@@ -85,6 +91,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
         // updating the game
         handler.tick();
+        camera.tick();
     }
 
     private void render() {
@@ -96,14 +103,19 @@ public class Game extends Canvas implements Runnable {
         }
 
         Graphics g = bs.getDrawGraphics();
+        Graphics2D g2d = (Graphics2D) g;
 
         // Meat and bones of rendering
         g.setColor(Color.gray);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         Toolkit.getDefaultToolkit().sync();
 
+        g2d.translate(-camera.getX(), -camera.getY());
 
         handler.render(g);
+
+        g2d.translate(camera.getX(), camera.getY());
+
 
         bs.show();
         g.dispose();

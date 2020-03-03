@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 public class MouseInput extends MouseAdapter {
 
     private Handler handler;
+    private Camera camera;
     private GameObject tmpPlayer = null;
 
     public void findPlayer(){
@@ -15,8 +16,9 @@ public class MouseInput extends MouseAdapter {
         }
     }
 
-    public MouseInput(Handler handler) {
+    public MouseInput(Handler handler, Camera camera) {
         this.handler = handler;
+        this.camera = camera;
     }
 
     public void mousePressed(MouseEvent e) {
@@ -27,8 +29,8 @@ public class MouseInput extends MouseAdapter {
         if (tmpPlayer != null) {
             GameObject tmpBullet = handler.add(new SimpleBullet(tmpPlayer.x + 16, tmpPlayer.y + 16, ID.SimpleBullet));
 
-            float angle = (float) Math.atan2(my - tmpPlayer.y, mx - tmpPlayer.x);
-            int bulletVelocity = 13;
+            float angle = (float) Math.atan2(my - tmpPlayer.y - 16 + camera.getY(), mx - tmpPlayer.x - 16 + camera.getX());
+            int bulletVelocity = 10;
             tmpBullet.velX = (float) ((bulletVelocity) * Math.cos(angle));
             tmpBullet.velY = (float) ((bulletVelocity) * Math.sin(angle));
 
