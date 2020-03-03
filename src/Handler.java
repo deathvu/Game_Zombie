@@ -1,23 +1,29 @@
 import java.awt.*;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Handler {
 
-    public LinkedList<GameObject> objects = new LinkedList<GameObject>();
+    public CopyOnWriteArrayList<GameObject> objects = new CopyOnWriteArrayList<GameObject>();
+
+    public Iterator <GameObject> it = objects.iterator();
 
     public void tick() {
-        for (GameObject tmpObj : objects){
-            tmpObj.tick();
+        while (it.hasNext()){
+            it.next().tick();
         }
     }
 
     public void render(Graphics g) {
-        for (GameObject tmpObj : objects){
-            tmpObj.render(g);
+        while (it.hasNext()){
+            it.next().render(g);
         }
     }
 
     public GameObject add(GameObject tmpObj){
+
         objects.add(tmpObj);
         return tmpObj;
     }

@@ -14,7 +14,7 @@ public class SimpleBullet extends GameObject {
     @Override
     public void render(Graphics g) {
         g.setColor(Color.yellow);
-        g.fillRect((int)x, (int)y, 8,8);
+        g.fillRect((int)x, (int)y, 6,6);
         Toolkit.getDefaultToolkit().sync();
     }
 }

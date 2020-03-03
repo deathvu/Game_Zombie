@@ -1,6 +1,9 @@
+import org.xml.sax.ErrorHandler;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.security.Key;
+import java.util.logging.ErrorManager;
 
 public class Game extends Canvas implements Runnable {
 
@@ -15,7 +18,8 @@ public class Game extends Canvas implements Runnable {
     private KeyInput input;
     private MouseInput mouseInput;
 
-    public Game(){
+
+    public Game() throws InterruptedException {
         //constructor
         new Window(WIDTH, HEIGHT, title, this);
         start();
@@ -23,7 +27,7 @@ public class Game extends Canvas implements Runnable {
         init();
     }
 
-    private void init(){
+    private void init() throws InterruptedException {
         handler = new Handler();
         input = new KeyInput();
         mouseInput = new MouseInput(handler);
@@ -31,17 +35,21 @@ public class Game extends Canvas implements Runnable {
         this.addMouseListener(mouseInput);
 
         handler.add(new Player(100, 100, ID.Player, input));
+//        thread.wait(1000);
         mouseInput.findPlayer();
+//        wait(1000);
 
     }
 
-    private synchronized void start(){
+    private synchronized void start() throws InterruptedException {
         if (isRunning) return;
 
         thread = new Thread(this);
         thread.start();
+//        thread.sleep(10000);
         isRunning = true;
     }
+
 
     private synchronized void stop(){
         if (!isRunning) return;
@@ -109,7 +117,7 @@ public class Game extends Canvas implements Runnable {
         g.dispose();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         new Game();
     }
 }
