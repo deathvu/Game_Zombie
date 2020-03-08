@@ -1,6 +1,7 @@
 import java.awt.*;
 
 public class SimpleBullet extends GameObject {
+
     public SimpleBullet(float x, float y, ID id) {
         super(x, y, id);
     }

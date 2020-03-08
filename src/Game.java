@@ -32,11 +32,17 @@ public class Game extends Canvas implements Runnable {
         this.addKeyListener(input);
         this.addMouseListener(mouseInput);
 
+
+        Player player = new Player(100, 100, ID.Player, input);
         handler.add(new Obstacle(100, 500, ID.Block));
         handler.add(new Obstacle(200, 400, ID.Block));
         handler.add(new Obstacle(300, 300, ID.Block));
         handler.add(new Obstacle(400, 200, ID.Block));
-        handler.add(new Player(100, 100, ID.Player, input));
+        handler.add(player);
+        handler.add(new Zombie(100, 200, ID.Zombie, player));
+        handler.add(new Zombie(200, 200, ID.Zombie, player));
+        handler.add(new Zombie(300, 200, ID.Zombie, player));
+        handler.add(new Zombie(150, 200, ID.Zombie, player));
         mouseInput.findPlayer();
 
     }
