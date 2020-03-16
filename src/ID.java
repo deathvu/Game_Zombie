@@ -3,5 +3,4 @@ public enum ID {
     Zombie(),
     Block(),
     SimpleBullet();
-
 }

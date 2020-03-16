@@ -32,7 +32,6 @@ public class Game extends Canvas implements Runnable {
         this.addKeyListener(input);
         this.addMouseListener(mouseInput);
 
-
         Player player = new Player(100, 100, ID.Player, input);
         handler.add(new Obstacle(100, 500, ID.Block));
         handler.add(new Obstacle(200, 400, ID.Block));
