@@ -1,4 +1,8 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Player extends GameObject {
 
@@ -50,8 +54,15 @@ public class Player extends GameObject {
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.blue);
-        g.fillRect((int) x, (int)y, 32, 32);
+        try{
+            // System.out.println(new File(".").getAbsolutePath());
+            BufferedImage image = ImageIO.read(new File("src/kan.jpg"));
+            g.drawImage(image, (int)x, (int)y, 60, 60,  null);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        //g.setColor(Color.blue);
+        //g.fillRect((int) x, (int)y, 32, 32);
         Toolkit.getDefaultToolkit().sync();
     }
 }

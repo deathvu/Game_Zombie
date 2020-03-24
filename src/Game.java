@@ -1,6 +1,10 @@
+import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.security.Key;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class Game extends Canvas implements Runnable {
 
@@ -19,8 +23,7 @@ public class Game extends Canvas implements Runnable {
     public Game(){
         //constructor
         new Window(WIDTH, HEIGHT, title, this);
-        start();
-
+        // start();
         init();
     }
 
@@ -46,17 +49,15 @@ public class Game extends Canvas implements Runnable {
 
     }
 
-    private synchronized void start(){
-        if (isRunning) return;
-
-        thread = new Thread(this);
-        thread.start();
-        isRunning = true;
-    }
+//    private synchronized void start(){
+//        if (isRunning) return;
+//        thread = new Thread(this);
+//        thread.start();
+//        isRunning = true;
+//    }
 
     private synchronized void stop(){
         if (!isRunning) return;
-
         try {
             thread.join();
         } catch (InterruptedException e) {
@@ -66,6 +67,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void run() {
+        isRunning = true;
         this.requestFocus();
         long lastTime = System.nanoTime();
         double ammountOfTricks = 60.0;
@@ -127,7 +129,10 @@ public class Game extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
         // Let the game begin !
-        new Game();
+        executorService.submit(new Game());
+        executorService.submit(new MusicPlayer("track"));
+
     }
 }
