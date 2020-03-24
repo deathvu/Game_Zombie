@@ -1,10 +1,10 @@
-import java.applet.AudioClip;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.security.Key;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
+
+
 
 public class Game extends Canvas implements Runnable {
 
@@ -129,10 +129,11 @@ public class Game extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        // Let the game begin !
-        executorService.submit(new Game());
-        executorService.submit(new MusicPlayer("track"));
-
+        MainMenuPanel menu = new MainMenuPanel();
+        menu.setVisible(true);
+//        ExecutorService executorService = Executors.newFixedThreadPool(2);
+//        // Let the game begin !
+//        executorService.submit(new Game());
+//        executorService.submit(new MusicPlayer("track"));
     }
 }
