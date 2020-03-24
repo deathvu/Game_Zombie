@@ -54,9 +54,16 @@ public class Player extends GameObject {
     }
 
     public void render(Graphics g) {
+        String path = "up";
+
+        if (input.keys[0]) {path = "right";}
+        if (input.keys[1]) {path = "left";}
+        if (input.keys[2]) {path = "up";}
+        if (input.keys[3]) {path = "down";}
+
         try{
             // System.out.println(new File(".").getAbsolutePath());
-            BufferedImage image = ImageIO.read(new File("src/kan.jpg"));
+            BufferedImage image = ImageIO.read(new File("src/" + path + ".jpg"));
             g.drawImage(image, (int)x, (int)y, 60, 60,  null);
         }catch (IOException e){
             e.printStackTrace();

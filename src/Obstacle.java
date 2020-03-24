@@ -18,15 +18,15 @@ public class Obstacle extends GameObject {
     @Override
     public void render(Graphics g)
     {
-        try{
-            // System.out.println(new File(".").getAbsolutePath());
-            image = ImageIO.read(new File("src/cat.jpg"));
-            g.drawImage(image, (int)x, (int)y, 90, 90,  null);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+//        try{
+//            // System.out.println(new File(".").getAbsolutePath());
+//            image = ImageIO.read(new File("src/cat.jpg"));
+//            g.drawImage(image, (int)x, (int)y, 50, 200,  null);
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
 
-        //g.setColor(Color.red);
-        //g.fillRect((int)x, (int)y, 64, 64);
+        g.setColor(Color.black);
+        g.fillRect((int)x, (int)y, 50, 200);
     }
 }

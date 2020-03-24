@@ -1,5 +1,9 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.security.Key;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -36,15 +40,17 @@ public class Game extends Canvas implements Runnable {
         this.addMouseListener(mouseInput);
 
         Player player = new Player(100, 100, ID.Player, input);
-        handler.add(new Obstacle(100, 500, ID.Block));
-        handler.add(new Obstacle(200, 400, ID.Block));
-        handler.add(new Obstacle(300, 300, ID.Block));
-        handler.add(new Obstacle(400, 200, ID.Block));
+
+        Level_1 level_1 = new Level_1(player);
+
+        for (Obstacle obstacle: level_1.obstacles) {
+            handler.add(obstacle);
+        }
+        for (Zombie zombie: level_1.zombies) {
+            handler.add(zombie);
+        }
+
         handler.add(player);
-        handler.add(new Zombie(100, 200, ID.Zombie, player));
-        handler.add(new Zombie(200, 200, ID.Zombie, player));
-        handler.add(new Zombie(300, 200, ID.Zombie, player));
-        handler.add(new Zombie(150, 200, ID.Zombie, player));
         mouseInput.findPlayer();
 
     }
@@ -112,7 +118,14 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
         Graphics2D g2d = (Graphics2D) g;
 
-        // Meat and bones of rendering
+//        try{
+//            // System.out.println(new File(".").getAbsolutePath());
+//            BufferedImage image = ImageIO.read(new File("src/grass.jpg"));
+//            g.drawImage(image, 0, 0, WIDTH, HEIGHT,  null);
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
+
         g.setColor(Color.gray);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         Toolkit.getDefaultToolkit().sync();
@@ -129,6 +142,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) {
+
         MainMenuPanel menu = new MainMenuPanel();
         menu.setVisible(true);
 //        ExecutorService executorService = Executors.newFixedThreadPool(2);
